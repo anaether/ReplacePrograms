@@ -1,21 +1,28 @@
-﻿namespace ReplacePrograms.Utils
+﻿using System;
+using System.Drawing;
+
+namespace ReplacePrograms.Utils
 {
     public static class ScreenUtils
     {
         /// <summary>
-        /// Calculate Centerposition with current Window.
+        /// Calculate Centerposition with current Window. (deprecated)
         /// </summary>
         /// <param name="screenWidth">Width of the monitor screen.</param>
         /// <param name="windowWidth">Width of the program screen.</param>
         /// <param name="screenHeight">Heigth of the monitor screen.</param>
         /// <param name="windowHeight">Heigth of the program screen.</param>
         /// <returns></returns>
-        public static (int x, int y) CenterPosition(int screenWidth, int windowWidth, int screenHeight, int windowHeight)
+        public static Point CenterPosition(int screenWidth, int screenHeight, int windowWidth, int windowHeight)
         {
-            int x = ((int)((screenWidth - windowWidth) / 2));
-            int y = ((int)((screenHeight - windowHeight) / 2));
+            int x = ((screenWidth / 2) - (windowWidth / 2));
+            int y = ((screenHeight / 2) - (windowHeight / 2));
 
-            return (x, y);
+            Console.WriteLine("x: {0}", x);
+            Console.WriteLine("y: {0}", y);
+
+            Point location = new Point(x, y);
+            return location;
         }
     }
 }

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.IO;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using ReplacePrograms.Models.Enum;
 
 namespace ReplacePrograms.Utils
 {
     class MigrationUtils
     {
-        public static void CreateSymbolicLinksAsync(string source, string destination)
+        public static void CreateSymbolicLinksAsync(string source, string destination, string rootpath)
         {
-            string symbol = "/c mklink /j " + source + " " + destination + " & exit";
+            string symbol = "pushd " + rootpath + " & " + "/c mklink /J " + ((char)34) + source + ((char)34) + " " + ((char)34) + destination + ((char)34); // + " & exit";
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = "cmd.exe";
@@ -21,11 +18,14 @@ namespace ReplacePrograms.Utils
             Process process = new Process();
             process.StartInfo = info;
             process.Start();
+            process.WaitForExit();
+            Console.WriteLine("Process finished");
         }
 
         public static void ProceedMigration(string source, string destination)
         {
             string SourceFolderName = FolderUtils.GetFolderNameOfPath(source);
+            string RootPath = FolderUtils.GetFullPathName(source);
             string DestinationFolderName = destination + "" + SourceFolderName;
 
             // Copy all stuff to new directory.
@@ -36,7 +36,7 @@ namespace ReplacePrograms.Utils
 
             // Create new symbolic links from (source folder) to the new folder.
             // CreateSymbolicLinksAsync(source, DestinationFolderName);
-            CreateSymbolicLinksAsync(source, DestinationFolderName);
+            CreateSymbolicLinksAsync(source, DestinationFolderName, RootPath);
             Console.WriteLine("symolic link created for {0} <<===>> {1}", source, DestinationFolderName);
         }
     }

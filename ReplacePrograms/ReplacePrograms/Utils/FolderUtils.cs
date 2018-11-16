@@ -19,6 +19,27 @@ namespace ReplacePrograms.Utils
         }
 
         /// <summary>
+        /// Return the root folder from the source directory to can make: pushd (fixing symlincs with these method)
+        /// </summary>
+        /// <returns></returns>
+        public static string GetFullPathName(string source)
+        {
+            string[] data = source.Split(new string[] { "\\" }, StringSplitOptions.None);
+            string result = "";
+
+            // data.Length-1 to skip the final folder name.
+            for(int i = 0; i < data.Length - 1; i++)
+            {
+                if ((i + 1) == (data.Length - 2))
+                    result += data[i];
+                else
+                    result += data[i] + "\\";
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Move directory from source to destination folder
         /// </summary>
         /// <param name="source"></param>

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Enum\Symbolic_Link_Flags.cs" />
     <Compile Include="UI\MainUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +56,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\FolderUtils.cs" />
+    <Compile Include="Utils\MigrationUtils.cs" />
     <Compile Include="Utils\ScreenUtils.cs" />
     <Compile Include="Utils\SymbolicUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -82,8 +84,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

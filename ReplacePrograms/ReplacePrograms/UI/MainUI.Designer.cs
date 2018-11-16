@@ -1,6 +1,6 @@
-﻿namespace ReplacePrograms
+﻿namespace ReplacePrograms.UI
 {
-    partial class Form1
+    partial class MainUI
     {
         /// <summary>
         /// Erforderliche Designervariable.

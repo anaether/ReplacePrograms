@@ -11,50 +11,15 @@ namespace ReplacePrograms.UI
 {
     public partial class MainUI : Form
     {
-        private string SourcePath = "";
-        private string DestinationPath = "";
-
         public MainUI()
         {
             InitializeComponent();
-
-            // For testing:
-            this.button2.Visible = this.button2.Enabled = false;
-            this.button3.Visible = this.button3.Enabled = false;
 
             // UI Settings
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.CenterToScreen();
-        }
-
-        private void button2_Click(object sender, System.EventArgs e)
-        {
-            OpenFileDialog folderBrowser = new OpenFileDialog();
-            folderBrowser.ValidateNames = false;
-            folderBrowser.CheckFileExists = false;
-            folderBrowser.CheckPathExists = true;
-            folderBrowser.FileName = "Folder Selection.";
-
-            if (folderBrowser.ShowDialog() == DialogResult.OK)
-            {
-                this.SourcePath = Path.GetDirectoryName(folderBrowser.FileName);
-            }
-        }
-
-        private void button3_Click(object sender, System.EventArgs e)
-        {
-            OpenFileDialog folderBrowser = new OpenFileDialog();
-            folderBrowser.ValidateNames = false;
-            folderBrowser.CheckFileExists = false;
-            folderBrowser.CheckPathExists = true;
-            folderBrowser.FileName = "Folder Selection.";
-
-            if (folderBrowser.ShowDialog() == DialogResult.OK)
-            {
-                this.DestinationPath = Path.GetDirectoryName(folderBrowser.FileName);
-            }
         }
 
         private void button1_Click(object sender, System.EventArgs e)
@@ -67,8 +32,8 @@ namespace ReplacePrograms.UI
                 Task.Run(() => MigrationUtils.Proceed(ConvertData()));
 
                 // When we are done we can empty the listboxes
-                this.listboxSource.Items.Clear();
-                this.listBoxDestination.Items.Clear();
+                //this.listboxSource.Items.Clear();
+                //this.listBoxDestination.Items.Clear();
             }
             else
             {

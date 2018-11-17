@@ -22,8 +22,6 @@ namespace ReplacePrograms.Utils
         /// </summary>
         public static void RestartApplication()
         {
-
-
             try
             {
                 Environment.Exit(0);

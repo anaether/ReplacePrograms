@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 using ReplacePrograms.Utils;
 
 namespace ReplacePrograms.UI
@@ -55,9 +57,12 @@ namespace ReplacePrograms.UI
 
         private void button1_Click(object sender, System.EventArgs e)
         {
+            Console.WriteLine((ProgramUtils.HasAdministratorRights()) ? "True" : "False");
+
             if (this.SourcePath.Length > 0 && this.DestinationPath.Length > 0)
             {
-                MigrationUtils.ProceedMigration(this.SourcePath, this.DestinationPath);
+                // Create a new Task to run the complete migration behind and to dont freeze the UI.
+                Task.Run(() => MigrationUtils.ProceedMigration(this.SourcePath, this.DestinationPath));
             }
             else
             {

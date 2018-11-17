@@ -63,6 +63,7 @@
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\ProgramUtils.cs" />
     <Compile Include="Utils\ScreenUtils.cs" />
+    <Compile Include="Utils\SymbolicLinkUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,7 +76,9 @@
     <EmbeddedResource Include="UI\MainUI.resx">
       <DependentUpon>MainUI.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

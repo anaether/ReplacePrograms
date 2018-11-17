@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ReplacePrograms.Models;
@@ -18,6 +20,9 @@ namespace ReplacePrograms.Utils
                 // Copy all stuff to new directory.
                 FolderUtils.CopyDirectory(data[i].Source, DestinationFolderName);
 
+                // Kills an process, if there are .exe files inside the rootfolders.
+                KillProcess(data[i].Source);
+
                 // Remove old folder to can create new Symbolic Links.
                 FolderUtils.DeleteDirectory(data[i].Source);
 
@@ -30,6 +35,39 @@ namespace ReplacePrograms.Utils
             }
 
             await Task.Delay(1);
+        }
+
+        public static void KillProcess(string source)
+        {
+            string[] files = Directory.GetFiles(source);
+            List<string> applications = new List<string>();    
+
+            for (int j = 0; j < files.Length; j++)
+            {
+                if (files[j].Contains(".exe"))
+                {
+                    applications.Add(FolderUtils.GetFolderNameOfPath(files[j]));
+                }
+            }
+
+            // Skip if we dont find anything inside the folder.
+            if (applications.Count == 0)
+                return;
+            
+            // Receive all processes that are excecuted.
+            Process[] buffer = Process.GetProcesses();
+
+            for(int i = 0; i < buffer.Length; i++)
+            {
+                for(int j = 0; j < applications.Count; j++)
+                {
+                    // If the name/process are equal we kill it, that we can delete the files save.
+                    if (buffer[i].Equals(applications[j]))
+                    {
+                        buffer[i].Kill();
+                    }
+                }
+            }
         }
     }
 }

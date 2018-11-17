@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Diagnostics;
+using IWshRuntimeLibrary;
 
 namespace ReplacePrograms.Utils
 {
@@ -22,6 +24,25 @@ namespace ReplacePrograms.Utils
             Console.WriteLine("Process finished");
         }
 
+        /// <summary>
+        /// Create Shortcut
+        /// </summary>
+        /// <param name="shortcutDir">Source directory where the shortcut will be saved.</param>
+        /// <param name="targetPath">Target directory where the source for the shortcut is located.</param>
+        public static void CreateShortcut(string shortcutDir, string targetPath)
+        {
+            string path = shortcutDir + ".lnk";
+            WshShellClass shell = new WshShellClass();
+            WshShortcut shortcut = (WshShortcut)shell.CreateShortcut(path);
+
+            shortcut.TargetPath = targetPath;
+            shortcut.WorkingDirectory = Path.GetDirectoryName(targetPath);
+            shortcut.Arguments = "Argument";
+            shortcut.Description = "This is a Shortcut";
+
+            shortcut.Save();
+        }
+
         public static void ProceedMigration(string source, string destination)
         {
             string SourceFolderName = FolderUtils.GetFolderNameOfPath(source);
@@ -36,6 +57,9 @@ namespace ReplacePrograms.Utils
 
             // Create new symbolic links from (source folder) to the new folder.
             // CreateSymbolicLinksAsync(source, DestinationFolderName);
+            //CreateSymbolicLinksAsync(source, DestinationFolderName, RootPath);
+
+            //CreateShortcut(source, DestinationFolderName);
             CreateSymbolicLinksAsync(source, DestinationFolderName, RootPath);
             Console.WriteLine("symolic link created for {0} <<===>> {1}", source, DestinationFolderName);
         }

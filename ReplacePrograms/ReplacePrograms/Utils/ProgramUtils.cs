@@ -18,7 +18,7 @@ namespace ReplacePrograms.Utils
         }
 
         /// <summary>
-        /// Restart Application when its not started with admin rights.
+        /// Restart Application when its not started with admin rights. (Unfinisched)
         /// </summary>
         public static void RestartApplication()
         {

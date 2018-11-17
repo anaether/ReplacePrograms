@@ -9,7 +9,7 @@ namespace ReplacePrograms.Utils
     {
         public static void CreateSymbolicLinksAsync(string source, string destination, string rootpath)
         {
-            string symbol = "pushd " + rootpath + " & " + "/c mklink /D " + ((char)34) + source + ((char)34) + " " + ((char)34) + destination + ((char)34); // + " & exit";
+            string symbol = "pushd " + rootpath + " & " + "/c mklink /D " + ((char)34) + source + ((char)34) + " " + ((char)34) + destination + ((char)34) + " & exit";
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = "cmd.exe";
@@ -21,7 +21,7 @@ namespace ReplacePrograms.Utils
             process.StartInfo = info;
             process.Start();
             process.WaitForExit();
-            Console.WriteLine("Process finished");
+            Console.WriteLine("Symbolic Link has been created.");
         }
 
         /// <summary>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using IWshRuntimeLibrary;
+using ReplacePrograms.Models;
 
 namespace ReplacePrograms.Utils
 {
@@ -43,7 +45,7 @@ namespace ReplacePrograms.Utils
             shortcut.Save();
         }
 
-        public static void ProceedMigration(string source, string destination)
+        public static async Task ProceedMigration(string source, string destination)
         {
             string SourceFolderName = FolderUtils.GetFolderNameOfPath(source);
             string RootPath = FolderUtils.GetFullPathName(source);
@@ -62,6 +64,8 @@ namespace ReplacePrograms.Utils
             //CreateShortcut(source, DestinationFolderName);
             CreateSymbolicLinksAsync(source, DestinationFolderName, RootPath);
             Console.WriteLine("symolic link created for {0} <<===>> {1}", source, DestinationFolderName);
+
+            await Task.Delay(1);
         }
     }
 }
